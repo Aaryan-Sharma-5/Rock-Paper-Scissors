@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock, Paper, Scissors</title>
+  <style>
+    body{
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rock, Paper, Scissors</h1>
+
+  <button onclick="
+  let random_num = Math.random() * 3;
+  let comp_choice;
+  if (random_num > 0 && random_num <= 1){
+    comp_choice = 'Rock';
+  }else if (random_num > 1 && random_num <= 2){
+    comp_choice = 'Paper';
+  }else{
+    comp_choice = 'Scissors';
+  }
+  let result;
+  if (comp_choice === 'Scissors'){
+    result = 'User won';
+  }else if (comp_choice === 'Paper'){
+    result = 'User lost';
+  }else{
+    result = 'Match draw';
+  }
+  alert(`User selected Rock, Computer choice is ${comp_choice} and ${result}`)
+  ">Rock</button>
+
+  <button onclick="
+  random_num = Math.random() * 3;
+  if (random_num > 0 && random_num <= 1){
+    comp_choice = 'Rock';
+  }else if (random_num > 1 && random_num <= 2){
+    comp_choice = 'Paper';
+  }else{
+    comp_choice = 'Scissors';
+  }
+  if (comp_choice === 'Rock'){
+    result = 'User won';
+  }else if (comp_choice === 'Scissors'){
+    result = 'User lost';
+  }else{
+    result = 'Match draw';
+  }
+  alert(`User selected Paper, Computer choice is ${comp_choice} and ${result}`)
+  ">Paper</button>
+
+  <button onclick="
+  random_num = Math.random() * 3;
+  if (random_num > 0 && random_num <= 1){
+    comp_choice = 'Rock';
+  }else if (random_num > 1 && random_num <= 2){
+    comp_choice = 'Paper';
+  }else{
+    comp_choice = 'Scissors';
+  }
+  if (comp_choice === 'Paper'){
+    result = 'User won';
+  }else if (comp_choice === 'Rock'){
+    result = 'User lost';
+  }else{
+    result = 'Match draw';
+  }
+  alert(`User selected Scissors, Computer choice is ${comp_choice} and ${result}`)
+  ">Scissors</button>
+
+</body>
+</html>
