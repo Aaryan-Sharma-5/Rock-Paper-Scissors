@@ -1,2 +1,3 @@
 # Rock-Paper-Scissors
-Rock-Paper-Scissors game
+The following rule determines the winner -
+rock beats scissors, scissors beats paper and paper beats rock.
