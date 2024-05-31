@@ -1,76 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock, Paper, Scissors</title>
-  <style>
-    body{
-      text-align: center;
-    }
-  </style>
+  <link rel="stylesheet" href="RPS1.css">
 </head>
 <body>
   <h1>Rock, Paper, Scissors</h1>
 
-  <button onclick="
-  let random_num = Math.random() * 3;
-  let comp_choice;
-  if (random_num > 0 && random_num <= 1){
-    comp_choice = 'Rock';
-  }else if (random_num > 1 && random_num <= 2){
-    comp_choice = 'Paper';
-  }else{
-    comp_choice = 'Scissors';
-  }
-  let result;
-  if (comp_choice === 'Scissors'){
-    result = 'User won';
-  }else if (comp_choice === 'Paper'){
-    result = 'User lost';
-  }else{
-    result = 'Match draw';
-  }
-  alert(`User selected Rock, Computer choice is ${comp_choice} and ${result}`)
-  ">Rock</button>
+  <button class="selection_button" onclick="
+  let comp_choice = generateComputerChoice();
+  let resultMsg = getResult('Rock', comp_choice);
+  showResult('Rock', comp_choice, resultMsg);
+  "><img src="images/rock.png" alt="Rock" class="selection_image"></button>
 
-  <button onclick="
-  random_num = Math.random() * 3;
-  if (random_num > 0 && random_num <= 1){
-    comp_choice = 'Rock';
-  }else if (random_num > 1 && random_num <= 2){
-    comp_choice = 'Paper';
-  }else{
-    comp_choice = 'Scissors';
-  }
-  if (comp_choice === 'Rock'){
-    result = 'User won';
-  }else if (comp_choice === 'Scissors'){
-    result = 'User lost';
-  }else{
-    result = 'Match draw';
-  }
-  alert(`User selected Paper, Computer choice is ${comp_choice} and ${result}`)
-  ">Paper</button>
+  <button  class="selection_button" onclick="
+    comp_choice = generateComputerChoice();
+    resultMsg = getResult('Paper', comp_choice);
+    showResult('Paper', comp_choice, resultMsg);
+  "><img src="images/paper.png" alt="Paper" class="selection_image"></button>
 
-  <button onclick="
-  random_num = Math.random() * 3;
-  if (random_num > 0 && random_num <= 1){
-    comp_choice = 'Rock';
-  }else if (random_num > 1 && random_num <= 2){
-    comp_choice = 'Paper';
-  }else{
-    comp_choice = 'Scissors';
-  }
-  if (comp_choice === 'Paper'){
-    result = 'User won';
-  }else if (comp_choice === 'Rock'){
-    result = 'User lost';
-  }else{
-    result = 'Match draw';
-  }
-  alert(`User selected Scissors, Computer choice is ${comp_choice} and ${result}`)
-  ">Scissors</button>
+  <button class="selection_button" onclick="
+    comp_choice = generateComputerChoice();
+    resultMsg = getResult('Scissors', comp_choice);
+    showResult('Scissors', comp_choice, resultMsg);
+  "><img src="images/scissors.png" alt="Scissors" class="selection_image"></button>
+   
+  <h2>Choose your Tool!</h2>
 
+  <h3 id="user_move"></h3>  
+  <h3 id="computer_move"></h3>  
+  <h3 id="result"></h3>  
+  <h3 id="score"></h3>  
+
+  <button id="new" onclick="localStorage.clear()
+    resetScore();
+  ">Reset</button>
+
+  <script>
+    let scoreStr = localStorage.getItem('Score');
+    let score;
+    resetScore(scoreStr);
+    function resetScore(scoreStr){
+      score = scoreStr ? JSON.parse(scoreStr) : {
+      win: 0,
+      lost: 0,
+      tie: 0,
+    }
+
+    score.displayScore = function() {
+        return `Score 
+         Won: ${score.win}, Lost: ${score.lost}, Tie: ${score.tie}`;
+      };
+      showResult();
+  }
+
+    function generateComputerChoice() {
+      let random_num = Math.random() * 3;
+      if (random_num > 0 && random_num <= 1) {
+        return 'Rock';
+      } else if (random_num > 1 && random_num <= 2) {
+        return 'Paper';
+      } else {
+        return 'Scissors'
+      }
+    }
+
+    function getResult(userMove, computerMove) {
+      if (userMove === 'Rock') {
+        if (computerMove === 'Scissors') {
+          score.win++
+          return 'User won';
+        } else if (computerMove === 'Rock') {
+          score.tie++
+          return `It's a tie`;
+        } else if (computerMove === 'Paper') {
+          score.lost++
+          return 'User lost';
+        }
+      } else if (userMove === 'Paper') {
+        if (computerMove === 'Rock') {
+          score.win++
+          return 'User won';
+        } else if (computerMove === 'Paper') {
+          score.tie++
+          return `It's a tie`;
+        } else if (computerMove === 'Scissors') {
+          score.lost++
+          return 'User lost';
+        }
+      } else {
+        if (computerMove === 'Paper') {
+          score.win++
+          return 'User won';
+        } else if (computerMove === 'Scissors') {
+          score.tie++
+          return `It's a tie`;
+        }else if (computerMove === 'Rock') {
+          score.lost++
+          return 'User lost';
+        }
+      }
+    }
+     
+    function showResult(userMove, computerMove, result) {
+      localStorage.setItem('Score', JSON.stringify(score));
+
+      document.querySelector('#user_move').innerText = userMove ? `You selected ${userMove}` : '';
+      document.querySelector('#computer_move').innerText = computerMove ? `Computer choice is ${computerMove}` : '';
+      document.querySelector('#result').innerText = result || '';
+      document.querySelector('#score').innerText = score.displayScore();
+    }
+
+  </script>
 </body>
 </html>
